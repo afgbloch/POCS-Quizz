@@ -88,9 +88,9 @@ Column-stores use those resources more efficiently and can further employ better
 
 ### What is true about today's social graphs:
 - [ ] They have small cuts, which is why we can easily partition them for almost independent processing
-- [ ] The logical distance between any two vertices is short
+- [x] The logical distance between any two vertices is short
 - [ ] The physical distance between any two vertices is short
-- [ ] The number of edges per vertex follows a power-law distribution
+- [x] The number of edges per vertex follows a power-law distribution
 
 **Explanation**  
 Social graphs are mostly random and dense, which makes them impossible to perfectly partition.  
@@ -119,10 +119,10 @@ Similarly, most traditional airlines, like Lufthansa, operate using hubs.
 There are many flight to a local hub and not so many connections between hubs.  
 
 ### Consider an example of matrix multiplication:
-  for i in 0..n  
-    for j in 0..m  
-      for k in 0..p   
-        C[i][j] = C[i][j] + A[i][k] * B[k][j];  
+    for i in 0..n  
+      for j in 0..m  
+        for k in 0..p   
+          C[i][j] = C[i][j] + A[i][k] * B[k][j];  
 Assume that the matrices are large enough not to fit in L1/L2/L3 caches.  
 The matrices are stored in row-major order, that is, the rows of a matrix are listed in sequence.  
 Which of the following is the optimal loop ordering?  
@@ -251,8 +251,8 @@ The schedule corresponds to a serial execution of T1 followed by T2.
 Locks can be acquired (released) only in the first (second) phase of 2PL.  
 
 ### Consider the schedule  
-T1:R(C), T3:W(B), T2:R(A), T1:W(C), T3:W(A), T2:R(C), T3:COMMIT, T1:COMMIT, T2:COMMIT  
-Which of the following protocols does allow the actions to occur in precisely the order shown?  
+T1:R(C), T3:W(B), T2:R(A), T1:W(C), T3:W(A), T2:R(C), T3:COMMIT, T1:COMMIT, T2:COMMIT  
+Which of the following protocols does allow the actions to occur in precisely the order shown?  
 - [x] 2PL
 - [ ] Strict 2PL
 - [ ] None of the above.

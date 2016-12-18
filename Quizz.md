@@ -330,3 +330,611 @@ To ensure strong consistency, how many read operations should be performed at le
 **Explanation**  
 N=10, W=6. R+W>N, thus R must be at least 5.  
 With 4 or less read operation it is possible that all the read values are stale, even if they are the same.
+
+## Week 7: Virtualization
+
+### Virtualization:
+- [x] is a layer that exposes the same abstraction as the layer below 
+- [ ] is a layer that hides the abstraction of the layer below 
+- [x] provides isolation
+- [ ] provides fault tolerance 
+- [x] ensures modularity 
+- [ ] increases complexity 
+
+**Explanation**
+Virtualization is a layer that exposes the same abstraction as the layer
+below. It also hides the physical names used in the layer below providing
+isolation, ensures modularity and reduces the complexity of computer systems.
+
+### Choose examples of application of virtualization:
+- [x] threads
+- [ ] CPUs 
+- [x] virtual memory 
+- [ ] physical memory
+- [ ] von Neumann architecture
+- [x] sockets 
+- [x] virtual machines 
+
+**Explanation**
+A thread is a virtual CPU core, socket virtualizes a link and virtual memory
+virtualizes the physical memory. Virtual machines are a canonical example of
+virtualization, providing an abstraction of the underlying hardware.
+
+### Choose correct statements:
+- [x] Multiplexing can expose the same resource multiple times
+- [ ] Multiplexing can expose multiple resources as a single resource
+- [ ] Aggregation can expose the same resource multiple times
+- [x] Aggregation can expose multiple resources as a single resource 
+
+
+### As a form of virtualization, emulation is used to:
+- [x] execute code written for other ISAs
+- [x] implement RAM disks
+- [ ] reduce the overhead of other virtualization mechanisms
+- [x] enable the Java Virtual Machine 
+
+**Explanation**
+Emulation is a software technique that provides an abstraction of a virtual
+resource radically different than the physical resource. Examples of frequently
+emulated resources include hardware components (e.g., RAM disk) and non-native
+code (e.g., other ISAs, Java bytecode). It is considered the slowest
+virtualization mechanism as it typically lacks hardware support.
+
+### A virtual machine:
+- [x] is a duplicate of a real machine
+- [ ] is an isolated operating system
+- [ ] allows to run programs with improved performance 
+- [x] allows to run programs with minimum decrease in speed
+- [x] can share the same physical machine with other virtual machines 
+
+**Explanation**
+A virtual machine is an isolated, efficient duplicate of a real machine that
+exposes similar resources as the real machine. An efficient implementation must
+not have significant effect on application performance. Many VMs can run in
+isolation on the same physical machine.
+
+
+### People lost interest in virtual machines in 1990s because:
+- [ ] they required hardware support that is not provided 
+- [ ] they limited operating system's functionality
+- [x] the operating systems seemed to offer better opportunities for innovation
+- [ ] they were inefficient 
+
+**Explanation**
+People did not see any reasonable use cases for virtual machines.
+
+### A virtual machine monitor (VMM):
+- [x] has absolute control over the system
+- [ ] introduce significant application slowdown
+- [ ] is more complex compared to operating systems
+- [ ] can coexist with other VMMs on the same machine in isolation
+- [x] can be more easily adapted to hardware compared to an operating system 
+
+**Explanation**
+A virtual machine monitor has absolute control over the system. As such, there
+can be only one VMM per machine. An efficient implementation, with hardware
+support, introduces minimal performance overhead, if any. It implements much
+less functionality compared to operating systems, and therefore is less complex
+and easier to change.
+
+### A virtual machine monitor:
+- [ ] emulates CPUs
+- [x] emulates IO devices
+- [ ] emulates memory
+- [x] multiplexes CPUs
+- [x] multiplexes memory
+- [ ] multiplexes IO devices 
+
+
+**Explanation** 
+Each VM sees an abstraction of its own CPU cores and physical
+memory. IO devices like network device or keyboard are emulated in software.
+
+### A virtual machine monitor layer:
+- [ ] lies between an application and an operating system
+- [x] lies between an operating system and hardware
+- [x] allows application to issue instructions directly on a CPU
+- [x] allows an operating system to issue instructions directly on a CPU
+- [x] can issue instructions directly on a CPU 
+
+**Explanation**
+A VMM is a layer between the operating system and the hardware, but it allows
+for a bypass between OS and a CPU as well as application and a CPU. This is
+called direct execution. 
+
+### To access the host physical memory, a VM:
+- [ ] relies on an operating system modified by a VMM
+- [ ] bypasses a VMM directly to the host memory
+- [x] requires an additional level of indirection, mapping the guest physical
+  addresses to host physical addresses
+- [x] may use shadow page tables
+- [ ] may use cloned page tables
+- [x] may use nested page tables 
+
+**Explanation**
+The physical memory addresses observed in a VM need to be translated to host
+memory addresses. Such a mapping can be realized by shadow or nested page
+tables.
+
+### Shadow page tables:
+- [ ] require architectural support
+- [x] require a VMM to keep a mapping between each page in the VM page table and
+  a corresponding page in the VMM page table
+- [ ] require two hardware to walk through two page tables at the same time 
+
+###  Nested page tables:
+- [x] require architectural support
+- [ ] require a VMM to keep a mapping between each page in the VM page table and a
+corresponding page in the VMM page table
+- [x] require the hardware to walk through two page tables at the same time 
+
+### Choose correct statements:
+- [x] Type I VMM perform resource scheduling
+- [ ] Type II VMM perform resource scheduling
+- [ ] KVM is an example of Type I
+- [x] Xen is an example of Type I
+- [ ] VMware Workstation is an example of Tpe I 
+
+**Explanation**
+Type I VMM allocate and schedule physical resources. The examples of this VMM
+type include: Xen, VMware vSphere and Microsoft Hyper-V. Both types are equally
+popular.
+
+### A virtual machine monitor can provide direct execution only if:
+- [ ] all OS instructions are privileged
+- [x] all sensitive instructions are privileged
+- [ ] no sensitive instruction is privileged
+- [ ] no sensitive instruction can cause a trap
+- [ ] semantics of sensitive instructions vary based on the privilege level 
+
+**Explanation**
+According to the Popek/Goldberg theorem, a virtual machine monitor can provide
+direct execution only if if the semantics of those instructions is not a
+function of the privilege level, i.e., if all sensitive instructions are
+privileged and cause a trap. 
+
+### Disco aims to:
+- [x] allow many VMs running on a machine with ccNUMA architecture
+- [x] perform resource management along with resource multiplexing
+- [ ] allow a single VM to run on multiple connected machines
+- [x] avoid unnecessary replication of data in memory
+- [ ] limit the CPU utilization
+- [x] optimize locality 
+
+**Explanation**
+Disco is a VMM that allows many VMs to share the same ccNUMA machine. Besides
+resource multiplexing, it performs resource management (type II). Disco solves
+two memory related challenges: minimizes memory overheads and optimizes locality.
+
+### Double swapping problem occurs when:
+- [ ] a guest OS and then a VMM swap out the same page
+- [x] a VMM and then a guest OS swap out the same page
+- [ ] a guest OS and then a VMM swap the same page in
+- [ ] a VMM and then a guest OS swap the same page in 
+
+**Explanation**
+Double swapping problem occurs when first, a VMM swaps out a page X. Then, a
+guest OS decides to swap out the same page as it doesn't know the page is
+already swapped. As a result, the VMM needs to first swap the page X in, just to
+swap it out again.
+
+### To allow VMs for network communication, Disco:
+- [ ] implements its own networking stack
+- [x] emulates a software Ethernet switch
+- [x] emulates a NIC for each VM
+- [ ] requires multiple copies of data to transport a packet between VMs 
+
+### Efficient memory resource management becomes increasingly important in virtualized environment because:
+- [x] memory footprints of virtual machines keep increasing
+- [x] virtual machine migration happens more and more frequently
+- [ ] of the increasing complexity of virtual machine monitors
+- [x] of the increasing number of virtual machines hosted by a physical machine
+
+### Disco’s copy-on-write approach achieves savings in: TODO!!
+- [ ] memory bandwidth
+- [ ] memory capacity
+- [ ] the number of delta disks
+- [ ] the capacity of delta disks
+- [ ] shared disk bandwidth
+- [ ] shared disk capacity 
+
+**Explanation**
+
+## Data Center Systems
+
+### Every day in 2012 Amazon was increasing its compute capacity by the same amount as:
+- [ ] it did every year in 1990s
+- [x] Amazon.com needed for 5 years in 1990s
+- [ ] the global computing capacity in 1990s
+- [ ] Amazon.com needed between 1994 and 2012 
+
+**Explanation**
+This piece of information was really highlighted in the video. If you got it
+wrong, please watch the lecture one more time because you clearly were not
+paying attention.
+
+### Moore's law applies to:
+- [x] the semiconductor density
+- [x] the economy of scale
+- [ ] network hardware ASICs
+- [x] memory 
+
+**Explanation**
+Moor's law applies to various areas of computer science, not only to numbers of
+transistors. Innovation in technology makes it possible to quickly improve
+parameters of other components as well.
+
+### Compared to the number of personal computers, the estimated total number of computers in all data centers worldwide:
+- [x] is significantly lower
+- [ ] is comparable
+- [ ] is significantly higher
+- [ ] is impossible to compare 
+
+**Explanation**
+Despite the size of each data center, there are still much less computers there
+than there are desktops and mobile devices.
+
+### Price of building and maintaining a data center can be lowered by:
+- [ ] using specialized, custom made server parts
+- [x] using commodity, general purpose server parts
+- [ ] using specialized networking equipment
+- [x] using commodity networking equipment 
+
+**Explanation**
+It is cheaper to build a data center out of commodity parts. Even though they
+individually do not guarantee high reliability, fault tolerance or high
+performance, the low price make it possible to buy many such parts. Then, such
+features are provided using redundancy and replication.
+
+### What are the main differences between the Giant Scale Service architecture in 2001 and nowadays:
+- [x] service no longer needs to be located in a single data center
+- [ ] load balancers are no longer used
+- [x] RAID replaced by 3-way replication
+- [x] the network design
+- [ ] lack of clients 
+
+### Fault tolerance and performance metrics relevant for cloud services measure:
+- [ ] the number of running servers
+- [x] the fraction of queries a service is able to process
+- [x] the fraction of data available in the service
+- [ ] the time since the last failure happened in the service
+- [ ] the fraction of correct search results 
+
+### Assume that the amount of data used to respond to a query increases 2 times,while the system's capacity stays constant. The query rate for this system:
+- [ ] decreases n times
+- [ ] decreases 4 times
+- [ ] decreases 2 times
+- [ ] stays unchanged
+- [ ] increases 2 times
+- [ ] increases 4 times
+- [ ] increases n times
+- [ ] it is impossible to tell
+
+**Explanation**
+According to the DQ "principle", the number of queries per second times data per
+query is constant.
+
+### A system uses 10 storage nodes. The administrator adds 10 additional storage nodes.
+- [ ] yield increases 10 times
+- [ ] yield increases 2 times
+- [ ] yield stays the same
+- [ ] yield decreases 2 times
+- [ ] yield decreases 10 times
+- [x] it is impossible to tell 
+
+**Explanation**
+It depends whether the storage is the system's bottleneck or not.
+
+### The CAP theorem states that a distributed system cannot achieve all of the following properties at the same time:
+- [ ] high Concurrency
+- [x] Availability
+- [ ] high Performance
+- [ ] Composability
+- [ ] tolerance to network Attacks
+- [x] tolerance to network Partitioning
+- [ ] eventual Consistency
+- [ ] Atomicity
+- [ ] tolerance to network Congestion
+- [x] strong Consistency 
+
+**Explanation**
+The CAP theorem states that a distributed system can achieve at most two of the following properties: strong Consistency, high Availability, and tolerance to network Partitioning. 
+
+### Systems/protocols that achieve consistency and tolerance to network partitioning, but compromise availability, include:
+- [ ] Dynamo
+- [ ] single-site Oracle databases
+- [ ] DNS
+- [x] majority protocols
+- [ ] Web Caching
+
+### The CAP theorem:
+- [ ] is a hypothesis generally believed to be true based on practical experience
+- [x] has been proven to be correct
+- [ ] claims that a system can achieve at least one of the three properties
+- [ ] claims that a system can achieve at least two of the three properties
+- [ ] claims that a system can achieve at most one of the three properties
+- [x] claims that a system can achieve at most two of the three properties
+- [ ] claims that a system can achieve all three properties 
+
+**Explanation**
+CAP theorem claims that at most two out of three properties: Consistency, Availability and tolerance to network Partitions can be achieved by a system. This claim has been proven. The theorem cannot guarantee that any system achieves any of these properties. Bad design systems may fail to guarantee any of them.
+
+### An on-line, distributed plane ticket selling system can achieve:
+- [x] Consistency and Availability
+- [x] Consistency and tolerance to network Partitions
+- [x] Availability and tolerance to network Partitions
+- [ ] Consistency, Availability and tolerance to network Partitions
+- [ ] none of the above 
+
+**Explanation**
+Such a system can achieve Consistency and Availability sacrificing tolerance to network Partitions and simply stop working in case of partition. It can also sacrifice Availability, by not selling tickets in one of the separated network partitions. Finally, the system may continue selling tickets in both partitions, but this may lead to inconsistent state (e.g., service sells the same seat in both partitions).
+
+###  The latency of a cloud service:
+- [ ] is of secondary importance if throughput is high
+- [x] depends on the slowest subtask required to generate the response
+- [x] can be characterized by the long tail 
+
+### The TCP incast problem:
+- [ ] happens when a node sends a sub-request to many nodes
+- [x] happens when a node receives a response from many other nodes at the same time
+- [x] is usually caused by congestion on the link connected to the server
+- [ ] is usually caused by overall congestion in the network
+- [x] affects latency
+- [x] affects throughput 
+
+**Explanation**
+The incast problem usually happens when the server access link gets congested because of many responses coming to the same server at roughly the same time. This congestion, and resulting lost packets lead to significant drop in throughput and increase in latency.
+
+### Consider a service that responds to queries in: 100ms for 800 out of 1000 queries, 150ms for 100 out of 1000 queries, 200ms for 80 out of 1000 queries, 250ms for 16 out of 1000 queries and 500ms for 4 out of 1000 queries. The 99th percentile latency of this service equals:
+- [ ] 100ms
+- [ ] 150ms
+- [ ] 200ms
+- [x] 250ms
+- [ ] 400ms
+- [ ] 220ms
+- [ ] 117ms
+- [ ] the median latency of this service
+
+**Explanation**
+The 99th percentile latency means that 99% of the queries can be answered at most in this time. Or in other words, if we sort response times and look the the 99th percent value in this seqiuence we get a 99th percentile latency. In this case 99% out of 1000 is 990, so the 99% latency equals 250ms. Note that many cloud scale services need to care about even higher percentile, for example 99.9
+
+### Consider a service that responds to queries in: 100ms for 800 out of 1000 queries, 150ms for 100 out of 1000 queries, 200ms for 80 out of 1000 queries, 250ms for 16 out of 1000 queries and 500ms for 4 out of 1000 queries. The 50th percentile latency of this service equals:
+- [x] 100ms
+- [ ] 150ms
+- [ ] 200ms
+- [ ] 250ms
+- [ ] 400ms
+- [ ] 220ms
+- [ ] 117ms
+- [x] the median latency of this service
+
+**Explanation**
+Following the explanation for the previous question, the 50th percentile latency for this service equals 100ms. Median is by definition equal to 50th percentile. 
+
+## Week 9: Redudancy and Fault-Tolerance
+
+### Redundancy through coding can by achieved by:
+- [ ] mirroring
+- [x] using checksums
+- [ ] replication of content
+- [x] adding nonessential information 
+
+**Explanation**
+Redundancy through coding relies on adding additional information to the encoded data. This information is not essential to read the data, but it helps detecting and recovering from errors. A checksums is an example of such additional information.
+
+### Choose examples of incremental redundancy techniques:
+- [x] CRC
+- [x] TCP checksum
+- [ ] starting a new HDFS node when the old one fails
+- [ ] RAID 1
+- [x] RAID 5 
+
+**Explanation**
+Incremental redundancy increases the data size by just a small percent. CRC and TCP checksum achieve redundancy by encoding additional information. RAID 5 requires just 1 additional disk to provide redundancy.
+
+### In computer systems, data replication can be used to:
+- [x] increase data durability
+- [x] detect errors in data values
+- [x] discover correct data values
+- [ ] reduce the probability of data corruption in one replica. 
+
+**Explanation**
+The probability of data corruption in one replica is independent from that in other replicas.
+
+### Choose techniques that are used to avoid faults.
+- [ ] redundancy through coding
+- [ ] redundancy through replication
+- [ ] error containment
+- [ ] error masking
+- [x] none of the above 
+
+**Explanation**
+They are all techniques used in fault tolerance. Fault avoidance is impossible.
+
+### A fault tolerance process requires:
+- [x] error detection
+- [x] error containment
+- [ ] error amplification
+- [x] error masking
+- [ ] error propagation 
+
+**Explanation**
+As explained in the video, fault tolerance requires each module to perform error detection, containment and masking.
+
+### Failures are
+- [ ] faults that are latent.
+- [ ] faults that are masked.
+- [x] faults that turn into errors.
+- [ ] faults that are detected. 
+
+**Explanation**
+Failures are caused by active faults that cannot be detected or masked.
+
+### Error-correcting code memory can:
+- [ ] detect but not mask single-bit errors
+- [x] detect and mask single-bit errors
+- [x] detect but not mask double-bit errors
+- [ ] detect and mask double-bit errors 
+
+**Explanation**
+See the "Responding to active faults -- example" slide.
+
+### Tandem computer systems achieve single fault tolerance using:
+- [ ] only reliable hardware and software modules with negligible chances of failure
+- [x] replicated hardware modules
+- [x] redundant paths between hardware modules
+- [x] process pairs with synchronized states 
+
+**Explanation**
+See the "Tandem NONSTOP Mechanisms" slide.
+
+### Enforced modularity is used to
+- [ ] simplify errors
+- [x] enable errors containment
+- [ ] mark errors
+
+**Explanation**
+Enforced modularity provides state isolation between different modules, enabling to contain detected errors within a part of the system before they affects the states of other modules.
+
+###  If a component's failure rate follows the bathtub curve:
+- [x] if is likely to fail at the beginning of its use
+- [ ] it is unlikely to fail at the beginning of its use
+- [ ] the probability of a failure grows linearly with time
+- [ ] the probability of failure grows exponentially with time
+- [ ] the probability of failure starts high and decreases with time 
+
+**Explanation**
+The bathtub curve has a shape of a bathtub. It is high at the beginning and at the end and is low in the middle.
+
+### The availability of a computer system is 95%. What is the availability of the system after halving the mean-time-to-repair (MTTR)?
+- [ ] 95%
+- [x] 97.4%
+- [ ] 97.5%
+- [ ] 99%
+- [ ] it depends on additional variables 
+
+**Explanation**
+Let F=MTTF, R=MTTR. Then R/(R+F) = .05 = 1/20, and F=19R.
+If R' = R/2, then downtime= R'/(R'+F) = 0.5xR / (0.5xR+19R) = 0.5/19.5.
+Availability works out ot 97.4%
+
+### Say you have two hard drives with MTTF of 100 years connected into RAID-0 (zero redundancy) array. What is the MTTF of the array ?
+- [x] less than 100 years
+- [ ] = 100 years
+- [ ] more than 100 years 
+
+**Explanation**
+The zero-redundancy system will survive only as long as all of its components are operational, hence its MTTF is smaller than the smallest among the components MTTF (or equal to it, if the probability distribution is singular, but that is not the case for hard drives).
+
+
+### Separating durable and transient application state to provide high availability:
+- [x] uses the sweeping simplification principle
+- [ ] provides a hot spare
+- [x] avoids creating a synchronized application replica
+- [ ] makes it impossible for an application and the storage to fail at the same time 
+
+**Explanation**
+H/A applies the sweeping simplification principle by simply ignorning all transient state, and rebuilding it upon failure on the spare by using only the durable state.
+
+### Recovery-oriented computing aims to:
+- [x] minimize MTTR
+- [ ] minimize MTTF
+- [x] increase availability
+- [x] reduce the harmful effects of software bugs 
+
+**Explanation**
+Recovery-oriented computing recognizes software bugs as inevitable and aims to reduce their harmful effects. This approach shortens the application recovery time, which in turn increases availability.
+
+### SCSI Reservations are often used to:
+- [x] ensure consensus between the nodes on who is the active node (and who is the passive)
+- [ ] ensure the durability of data
+- [x] signal a change of active node
+- [x] avoid split-brain syndrom 
+
+**Explanation**
+The SCSI reservation mechanism will reject any write from a server that does not have the latest "key". This provides atomicity in takeover (each disk write is a transaction), and ensures consensus between the nodes as to who is the primary.
+
+### Choose the key properties of consensus:
+- [x] agreement
+- [ ] durability
+- [x] integrity
+- [ ] majority
+- [x] termination
+- [x] validity
+
+**Explanation**
+agreement - no two nodes decide differently
+validity - if all correct nodes propose the same value, they all choose this value
+termination - every correct node finally decides
+integrity - every correct node decides at most once and what it decides must have been proposed by some node
+
+### Select examples of Byzantine Failures:
+- [x] not sending a message that you're supposed to send
+- [x] sending an incorrect message because of a bug
+- [x] sending an incorrect message on purpose
+- [x] nondeterministically sending correct and incorrect messages
+- [ ] when the entire system crashes
+- [ ] when nodes in a system can't reach consensus 
+
+**Explanation**
+A Byzantine Failure is any incorrect behavior of system's node. Whether on purpose or not.
+
+### What is the minimum of replicas that a system needs in order to be able to reach consensus in the presence of n Byzantine failures (in the general case)?
+- [ ] n + 1
+- [ ] 2n
+- [ ] 2n + 1
+- [x] 3n + 1 
+
+
+
+### A fault-tolerant system using 7 replicas can survive at most:
+- [ ] 2 simultaneous "fail-stop" failures
+- [x] 3 simultaneous "fail-stop" failures
+- [x] 2 simultaneous Byzantine failures
+- [ ] 3 simultaneous Byzantine failures 
+
+**Explanation**
+BFT requires (3f+1) nodes. But distributed processes that operate in a fail-stop manner only require majority (2f+1)
+
+### Consensus in a distributed system is used to
+- [x] detect failures
+- [x] recover from failures
+- [x] ensure consistency of the system
+- [ ] improve performance of the system 
+
+### How does consensus related to agreement?
+- [ ] agreement subsumes consensus
+- [ ] agreement and consensus are the same
+- [x] consensus subsumes agreement correct 
+
+### In the synchronous model of a distributed system, how could we model the corruption of messages while in-transit on a network link between two nodes?
+- [x] as a corruption of the message occuring at the sending node
+- [x] as a corruption of the message occuring at the receiving node
+- [ ] it is not possible to model Byzantine links in the synchronous model
+- [x] can introduce an intermediary node that receives the correct message and forwards the corrupt version 
+
+
+### A stamp in Windows Azure Storage:
+- [ ] relies on high-end fault tolerant hardware to ensure high availability
+- [ ] should scale to hundreds or thousands of racks
+- [x] keeps replicated copies of data
+- [ ] is geographically distributed 
+
+**Explanation**
+A stamp in Windows Azure Storage is a storage unit that spans 20-30 racks. It uses commodity hardware but provides high availability by replicating data. A single stamp is not geographically distributed, but multiple geographically distributed stamps keeps copies of the same data to provide high availability.
+
+### When does the split brain syndrome occur:
+- [ ] as a consequence of data corruption
+- [x] in circumstances that can lead to data corruption
+- [x] when both the primary and backup servers simultaneously conclude they are the primary server
+- [x] when corpus callosum connecting the two hemispheres of the brain is severed to some degree (in the medical field) 
+
+### Which of the following statements are true:
+- [x] Vertical scaling assumes shared hardware components
+- [ ] Vertical scaling requires a process-pair design
+- [x] Horizontal scaling is generally more cost-effective
+- [ ] Vertical scaling generally uses a scale-out server deployment model 
+
+**Explanation**
+H/A clusters (not only process-pairs) run on vertically-scaled hardware.
+Vertical scaling is associaed with scale-up server designs. Horizontal scaling = scale-out.

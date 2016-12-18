@@ -530,17 +530,19 @@ swap it out again.
 - [ ] of the increasing complexity of virtual machine monitors
 - [x] of the increasing number of virtual machines hosted by a physical machine
 
-### Disco’s copy-on-write approach achieves savings in: TODO!!
+### Disco’s copy-on-write approach achieves savings in:
 - [ ] memory bandwidth
-- [ ] memory capacity
+- [x] memory capacity
 - [ ] the number of delta disks
 - [ ] the capacity of delta disks
-- [ ] shared disk bandwidth
-- [ ] shared disk capacity 
+- [x] shared disk bandwidth
+- [x] shared disk capacity 
 
 **Explanation**
+By enabling sharing with the copy-on-write semantics both for memory and disk, Disco saves on memory capacity, and as a side effect, on disk capacity. Page sharing avoids reading the same content from the disk, reducing the disk bandwidth.
 
-## Data Center Systems
+
+## Weak 8: Data Center Systems
 
 ### Every day in 2012 Amazon was increasing its compute capacity by the same amount as:
 - [ ] it did every year in 1990s

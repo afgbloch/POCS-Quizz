@@ -1267,3 +1267,104 @@ A stamp in Windows Azure Storage is a storage unit that spans 20-30 racks. It us
 **Explanation**
 H/A clusters (not only process-pairs) run on vertically-scaled hardware.
 Vertical scaling is associaed with scale-up server designs. Horizontal scaling = scale-out.
+
+## Week 10: Fault Tolerant services and the transaction concept
+### No video lecture.
+
+## Week 11: Verification and Testing
+
+### Domain specific languages are developed to:
+- [ ] limit the wide applicability found in general-purpose languages
+- [x] provide more appropriate abstractions to the programmer for a particular domain
+- [x] increase programmer productivity
+- [ ] reduce compiler construction efforts
+- [x] provide expressive power in the target domain in a compact manner 
+
+### Language virtual machines are primarily used to:
+- [x] support late binding
+- [ ] improve performance
+- [x] allow late compilation
+- [ ] avoid interpretation
+- [ ] virtualize resources
+- [x] improve portability 
+
+### Staged compilation:
+- [x] is organized as a series of stages
+- [ ] can improves performance, but compromises bytecode portability
+- [x] allows for hardware-specific optimizations
+- [x] provides better memory protection 
+
+### Programs written in high level languages can run faster than programs written in low level languages because:
+- [x] compilers may be better at optimizing than humans
+- [x] higher level abstractions allow for more flexible optimizations
+- [ ] they are shorter
+- [ ] none of the above. 
+
+### Which of the following do exist:
+- [x] a program that can write itself
+- [ ] a program that can decide if another program always terminates
+- [ ] a Turing machine that can decide if another Turing machine always terminates
+- [x] a compiler for language L written in language L 
+
+### Declarative languages:
+- [ ] precisely specify the control flow of a program
+- [x] express what a program should do
+- [ ] express what a program can do
+- [x] include, for example, SQL and Scala
+- [ ] include, for example, Java and C++ 
+
+### Choose the benefits of using declarative languages compared to imperative languages:
+**TODO** 
+- [ ] they are easier to program with
+- [ ] they are more expressive
+- [ ] they give better opportunity for optimization
+- [ ] programs are more modular
+- [ ] they are more robust 
+
+### First-order logic permits:
+- [x] simple predicates (e.g., “A holds only if B does not”)
+- [x] existential quantifiers (e.g., “there exists”, “for some”)
+- [ ] qualifiers such as “possibly”, “necessarily”
+- [x] universal quantifiers (e.g., “for every”, “given any”)
+- [ ] qualifiers such as “always”, “eventually” 
+
+### What is true about relations in Datalog:
+- [x] Relations from extensional database (EDB) can appear only in the body (right-hand side) of a program rule
+- [ ] Relations from EDB can appear only in the head (left-hand side) of a program rule
+- [ ] Relations from EDB can appear both in the body and the head of a program rule
+- [ ] Relations from intensional database (IDB) can appear only in the body
+- [ ] Relations from IDB can appear only in the head
+- [x] Relations from IDB can appear both in the body and head 
+
+### Compare the three ways to define the semantics of Datalog programs:
+- [ ] The model-theoretic semantics is superior as it seeks to find the MINIMUM set of facts that satisfy the program’s rules
+- [ ] The fixpoint semantics is the most complete because it computes ALL facts that can be proven based on the program’s rules and known facts through an iterative process
+- [ ] The fixpoint semantics is superior because it evaluates Datalog programs in a bottom-up manner
+- [ ] The proof-theoretic semantics is superior because it evaluates Datalog programs in a top-down manner
+- [ ] The proof-theoretic semantics is superior because it elegantly constructs new facts using trees
+- [x] All the three approaches give the same semantics 
+
+### According to the closed world assumption:
+- [ ] facts not in the database have to be false
+- [x] facts that are neither in the database nor can be inferred are considered false
+- [ ] facts that cannot be proven are considered unknown 
+
+### Prolog:
+- [ ] is a fully declarative language
+- [x] is Turing-compete
+- [ ] has the fixpoint semantics
+- [x] is more succinct compared to C
+- [ ] cannot express everything that a language such C can express
+- [ ] can express more compared to C 
+
+### Mark all correct statements:
+- [x] Adding more facts to the knowledge base in Datalog never gives fewer results
+- [ ] Adding more facts to the knowledge base in Datalog can give fewer results, because Datalog supports negations
+- [ ] Non-monotonic logic has no practical importance, as it gives multiple minimal models as solutions
+- [x] Answer set programming is more expressive than Datalog 
+
+### What properties should a well-designed declarative language have:
+- [x] be easy to understand
+- [ ] provide limited functionality
+- [x] not have too high computational complexity
+- [ ] allow for arbitrary computations 

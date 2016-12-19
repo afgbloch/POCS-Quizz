@@ -1574,13 +1574,15 @@ The basic Diffie-Hellman protocol allows to exchange keys securely even if an ad
 Digital signatures guarantee authenticity. An adversary can observe messages, reorder them and forward to other parties, and even understand the content, unless encryption is used. The adversary however cannot secretly modify the message because the signature of each message depends on its content. Updating the signature upon content modification is practically infeasible without the private key of the sender. 
 
 ### In the Diffie-Hellman key exchange protocol, digital signatures are used to:
-**TODO**
 - [ ] ensure privacy
 - [ ] ensure secrecy
-- [ ] ensure integrity
-- [ ] prevent man-in-the-middle attacks
+- [x] ensure integrity
+- [x] prevent man-in-the-middle attacks
 - [ ] avoid traditional handwritten signatures 
- 
+
+**Explanation** 
+The use of digital signatures in the Diffie-Hellman key exchange protocol ensures message integrity, which means that no adversary can modify the content of messages without being detected. As a consequence, the message integrity will prevent man-in-the-middle attacks.
+
 ### Mark all correct statements about Secure Shell (SSH): 
 - [ ] SSH is resistant to man-in-the-middle attacks
 - [ ] the public key of the remote host is distributed by a central trusted authority

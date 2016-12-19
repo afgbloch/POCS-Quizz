@@ -60,7 +60,6 @@ If, on the other hand, both F1 or F2 only have a single path, the inlined versio
 The minimum number of paths results when each if-then-else branch has exactly one possible outcome, regardless of input, such as "if (1 > 0) { ... } else { ... }".
 In this case, invoking the program with any number of distinct tests will still execute the same path through the code, because there exists only one feasible path. Therefore, the minimum number of paths is 1.
 
-
 ### How many lines of code (LOC) were verified in the seL4 operating system kernel?
 - [ ] several hundred
 - [x] several thousand
@@ -69,7 +68,6 @@ In this case, invoking the program with any number of distinct tests will still 
 
 **Explanation**
 7,500 LOC were verified (see slide 8).
-
 
 ### The lecture talked about testing and verification. Which of the following statements are always correct?
 - [ ] Given a fixed time budget, verification always finds more bugs than testing
@@ -80,7 +78,6 @@ In this case, invoking the program with any number of distinct tests will still 
 **Explanation**
 The first two options cannot be decided a priori, it depends on the code and the testing/verification being done.
 The last two options are always correct by definition: verification produces a proof that a system always meets its specification (i.e., is free of bugs), while testing looks for ways in which the system fails and finds input values for which these failure manifest (i.e., it finds inputs that prove the system has bugs).
-
 
 ### At which stage of building a system is it important to reduce complexity?
 - [x] design
@@ -117,7 +114,6 @@ The number of components and interconnections does not, by itself, determine com
 **Explanation**
 Anything that reduces the number of components (such as removing all support for printers and scanners) or the number of interconnections (such as removing dynamic linking) is likely to make the system simpler overall. The number of concurrent users does not directly relate to any of the complexity metrics, and emptying the trash or /tmp does not reduce the number of components or interconnections (but it could confuse some running daemons, thus creating management headaches).
 
-
 ### Consider a standard e-commerce site, like Amazon.com. During the holiday period, when the number of visitors to the site increases dramatically, the sysadmins decide to double the number of Web servers on the front-end. What should they do with the number of database servers?
 - [ ] double it, since they have to serve increased database load
 - [ ] halve it, since the Web servers can carry now more load
@@ -126,7 +122,6 @@ Anything that reduces the number of components (such as removing all support for
 
 **Explanation**
 A complex system like an e-commerce site is likely to have properties of incommensurate sclaing, so it is difficult to predict how the load on the database back-end will vary if the front-end doubles the number of users it can handle. It also depends on user behavior: doubling the number of visitors does not mean that there will be twice as many transactions to execute, since it may happen that Amazon.com's prices are too high, and all visitors go to the competitor.
-
 
 ### Consider the BitTorrent file distribution protocol. When run on two nodes, exchanging a file over BitTorrent is no faster then just copying it from one node to another. However, when the number of nodes grows to thousands, disseminating the file to all of them over BitTorrent becomes significantly faster then copying it from one node to all the others. Which of the system properties shown in lecture are good explanations of this behavior?
 - [x] Emergent properties
@@ -179,6 +174,140 @@ The first two choices are somewhat non-sensical, given the definitions of modula
 For the third choice, by using modularity and abstraction, we can encapsulate implementation into a module and use an interface to specify the abstraction that module implements.
 
 
+
+
+
+## Week 2: Layering
+
+### A layer typically:
+- [x] is a well-defined module
+- [x] exposes a specific abstraction
+- [x] manages a namespace
+- [ ] has to use a bus layer to communicate with other layers
+
+**Explanation**
+Buses are used to create stacks, but not required as part of a layer
+
+### Which of the following statements is/are true?
+- [ ] Stacking layers reduces the management complexity of a system.
+- [x] Layering generally leads to strong separation of concerns in a system.
+- [x] In a well-designed system, stacking layers decreases the number of dependencies among them.
+
+**Explanation**
+Increased management complexity is an emergent property of an overly-layered design. The separation of concerns is a natural consequence of the combination of modularity and abstraction property of the layer.
+
+### The compute stack allows direct execution (layered bypass). Which of the following statements are true:
+- [x] This improves systems performance
+- [ ] The hardware guarantees that applications cannot tamper the OS
+- [x] The OS must ensure that certain resource are never presented to the application
+- [ ] The OS is fundamentally exposed
+
+**Explanation**
+Layered bypass, as architected in the compute stack, does not pose a fundmental problem. But only as long as the OS correctly prevents the application's access to critical resources.
+
+### In the information stack:
+- [ ] filesystems and volumes are interchangeable
+- [x] filesystems are layered on top of volumes
+- [ ] volumes and filesystem present the same abstraction
+
+### Can a database be deployed directly on a raw disk drive ?
+- [x] Yes: the filesystem and volume management layer don't exist in this instance
+- [ ] Yes: because of layer bypass
+- [x] Yes: because the operating system can expose a raw disk directly
+- [ ] No. This is impossible.
+
+**Explanation**
+In that mode, there is no filesystem and no OS-managed volume, hence no bypass. It is however absolutely possible for a DB (or any program) to directly interact with a raw block device.
+
+### SCSI is
+- [x] an RPC protocol
+- [x] the interface exposed by rotating disks and SSD
+- [ ] a filesystem driver
+- [ ] exposed by VFS
+
+### In a client/server model:
+- [ ] client and server run on separate machines
+- [x] client and server communicate through a communication channel
+- [x] a client cannot access server's memory directly
+- [ ] a client has to get restarted if the server fails
+
+###  When sending an RPC, a client may:
+- [x] guarantee that the call is executed at least once
+- [x] guarantee that the call is executed at most once
+- [x] guarantee that the call is executed exactly once
+
+###  When an HTTP client receive a 404 (file not found)
+- [ ] this indicates a failure in the "at most once" semantic of HTTP
+- [ ] this indicates a failure in the "at least once" semantic of HTTP
+- [x] the RPC succeeded
+
+**Explanation**
+The HTTP protocol has "at most once" semantics. Which means, that in the absence of a reply, the command will have been applied zero or more times. A 404 simply indicates that the URI is not present on the server. But the client did receive a reply, and the RPC succeeded.
+
+### How many layers are there in the network model?
+- [ ] 3
+- [ ] 5
+- [ ] 7
+- [ ] 8
+- [x] it depends on who is counting
+
+**Explanation**
+"But mine goes to 11" (Spinal Tap)
+
+### Techniques like mapped or recursive composition are used to:
+- [x] provide compatibility
+- [x] provide extended functionality
+- [ ] used mainly in academia
+- [ ] add a fourth layer to the 3-layer networking stack
+
+### When a switch is also a router, then:
+- [ ] this is a case of layer bypass
+- [x] the device supports multiple protocols
+- [ ] the device becomes the end-to-end layer
+- [ ] the device support all 3-layers (of the 3-layer model)
+
+###  When a link fails in the middle of the network
+- [ ] the host's link layer is affected
+- [x] the link layer of two routers is affected
+- [ ] the link layer of >2 routers can be affected
+- [ ] the state of two routers is affected
+- [x] the state of at least two routers is affected
+
+
+
+
+
+## Week 3: End-to-End Principle
+
+### Choose functions that can't be implemented in the network alone according to the end-to-end argument:
+- [ ] multicast routing
+- [x] in-order data delivery
+- [ ] packet fragmentation
+- [x] reliable data delivery
+- [ ] capacity reservation
+- [x] duplicate suppression
+
+### What can be and end point for the end to end argument:
+- [x] a user of a system
+- [x] an end host
+- [x] a process
+
+**Explanation**
+They all can be considered as end points, depending on the system.
+
+### Which of the following processor design approaches follows the end-to-end principle?
+- [ ] complex instruction set computing (CISC)
+- [x] reduced instruction set computing (RISC)
+- [ ] both
+- [ ] none, the end-to-end argument is not applicable to processor design
+
+**Explanation**
+The RISC argument is that the user of the architecture will get better performance by implementing only the basic instructions needed by everyone, efficiently and using primitive tools; any attempt by the computer designer to anticipate the user's requirements for an esoteric feature will probably (1) miss the target slightly (2) sacrifice the performance of commonly used features and (3) the user will end up reimplementing that feature anyway. Any unnecessary feature once added to the ISA highly likely stays there forever, due to the backward-compatibility requirement.
+
+### What could be a valid reason for implementing a function at layer X even though it needs to be implemented at a higher layer anyway?
+- [ ] enforcing authority
+- [x] optimizing performance
+- [ ] ensuring security
 
 
 
@@ -239,6 +368,10 @@ The idempotency property means that applying the same update twice has the same 
 - [x] can be applied in any order without changing the result
 - [ ] are possible because the system guarantees well-defined behavior
 - [ ] are necessary for caching
+
+
+
+
 
 ## Week 5: Locality
 
@@ -347,6 +480,10 @@ As values in join column of each relation are directly compared, the used operat
 There are two different hash functions.
 One splits tuples into buckets on disk, the other splits tuples from one bucket in main memory.
 Because of the way hashing works, only equality comparison is possible.
+
+
+
+
 
 ## Week 6: Atomicity and Consistency
 
@@ -515,6 +652,10 @@ To ensure strong consistency, how many read operations should be performed at le
 N=10, W=6. R+W>N, thus R must be at least 5.
 With 4 or less read operation it is possible that all the read values are stale, even if they are the same.
 
+
+
+
+
 ## Week 7: Virtualization
 
 ### Virtualization:
@@ -608,7 +749,6 @@ and easier to change.
 - [x] multiplexes CPUs
 - [x] multiplexes memory
 - [ ] multiplexes IO devices
-
 
 **Explanation**
 Each VM sees an abstraction of its own CPU cores and physical
@@ -724,6 +864,9 @@ swap it out again.
 
 **Explanation**
 By enabling sharing with the copy-on-write semantics both for memory and disk, Disco saves on memory capacity, and as a side effect, on disk capacity. Page sharing avoids reading the same content from the disk, reducing the disk bandwidth.
+
+
+
 
 
 ## Weak 8: Data Center Systems
@@ -897,6 +1040,10 @@ The 99th percentile latency means that 99% of the queries can be answered at mos
 **Explanation**
 Following the explanation for the previous question, the 50th percentile latency for this service equals 100ms. Median is by definition equal to 50th percentile.
 
+
+
+
+
 ## Week 9: Redudancy and Fault-Tolerance
 
 ### Redundancy through coding can by achieved by:
@@ -1012,7 +1159,6 @@ Availability works out ot 97.4%
 **Explanation**
 The zero-redundancy system will survive only as long as all of its components are operational, hence its MTTF is smaller than the smallest among the components MTTF (or equal to it, if the probability distribution is singular, but that is not the case for hard drives).
 
-
 ### Separating durable and transient application state to provide high availability:
 - [x] uses the sweeping simplification principle
 - [ ] provides a hot spare
@@ -1071,8 +1217,6 @@ A Byzantine Failure is any incorrect behavior of system's node. Whether on purpo
 - [ ] 2n + 1
 - [x] 3n + 1
 
-
-
 ### A fault-tolerant system using 7 replicas can survive at most:
 - [ ] 2 simultaneous "fail-stop" failures
 - [x] 3 simultaneous "fail-stop" failures
@@ -1098,7 +1242,6 @@ BFT requires (3f+1) nodes. But distributed processes that operate in a fail-stop
 - [x] as a corruption of the message occuring at the receiving node
 - [ ] it is not possible to model Byzantine links in the synchronous model
 - [x] can introduce an intermediary node that receives the correct message and forwards the corrupt version
-
 
 ### A stamp in Windows Azure Storage:
 - [ ] relies on high-end fault tolerant hardware to ensure high availability

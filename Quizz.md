@@ -1287,6 +1287,7 @@ Vertical scaling is associaed with scale-up server designs. Horizontal scaling =
 - [ ] avoid interpretation
 - [ ] virtualize resources
 - [x] improve portability 
+
 **Explanation**
 The goal of the language virtual machines is not to virtualize resources. Although important, performance is not the primary purpose of language VMs. 
 
@@ -1295,6 +1296,7 @@ The goal of the language virtual machines is not to virtualize resources. Althou
 - [ ] can improves performance, but compromises bytecode portability
 - [x] allows for hardware-specific optimizations
 - [x] provides better memory protection 
+
 **Explanation**
 Staged compilation is organized as a series of stages, with the final stage taking place at runtime, allowing for runtime memory checks and low-level optimizations. 
 
@@ -1316,6 +1318,7 @@ Staged compilation is organized as a series of stages, with the final stage taki
 - [ ] express what a program can do
 - [x] include, for example, SQL and Scala
 - [ ] include, for example, Java and C++ 
+
 **Explanation**
 Declarative languages specify what a system should do, describing the logic of a program without describing the implementation. Examples include SQL and functional languages, such as Scala. In contrast, imperative languages, such as Java or C++, are used to describe the implementation, typically through program control flow. 
 
@@ -1332,6 +1335,7 @@ Declarative languages specify what a system should do, describing the logic of a
 - [ ] qualifiers such as “possibly”, “necessarily”
 - [x] universal quantifiers (e.g., “for every”, “given any”)
 - [ ] qualifiers such as “always”, “eventually” 
+
 **Explanation**
 First order logic extends propositional logic with the universal and existential quantifiers. Expressions that qualify the truth, such as “possibly” and “necessarily” belong to modal logic, or to temporal logic, if relate to time (e.g., “always”, “eventually”).
 
@@ -1342,6 +1346,7 @@ First order logic extends propositional logic with the universal and existential
 - [ ] Relations from intensional database (IDB) can appear only in the body
 - [ ] Relations from IDB can appear only in the head
 - [x] Relations from IDB can appear both in the body and head 
+
 **Explanation**
 EDB includes the knowledge base, i.e., known facts. Thus, EDB relations cannot appear in the head of a rule. In contrast, IDB includes inferred facts. As such, IDB relations can appear in both in the body or in the head of a program rule.
 
@@ -1352,6 +1357,7 @@ EDB includes the knowledge base, i.e., known facts. Thus, EDB relations cannot a
 - [ ] The proof-theoretic semantics is superior because it evaluates Datalog programs in a top-down manner
 - [ ] The proof-theoretic semantics is superior because it elegantly constructs new facts using trees
 - [x] All the three approaches give the same semantics 
+
 **Explanation**
 Although not obvious, all the approaches to giving semantics to Datalog programs are equivalent. The semantics of Datalog is independent of the evaluation mechanism, which can be either top-down or bottom-up.The top-down evaluation naturally follows the definition of the proof-theoretic semantics, while the bottom-up approach is based directly on the fixpoint semantics.
 
@@ -1367,6 +1373,7 @@ Although not obvious, all the approaches to giving semantics to Datalog programs
 - [x] is more succinct compared to C
 - [ ] cannot express everything that a language such C can express
 - [ ] can express more compared to C 
+
 **Explanation**
 Prolog is a Turing-complete language, and as such can express everything that can be expressed in C, but in a more succinct way. It uses the proof-theoretic semantics. However, Prolog contains imperative elements, such as operator "cut", which requires the programmer to think about Prolog internals. As such, Prolog is not a fully declarative language. 
 
@@ -1375,6 +1382,7 @@ Prolog is a Turing-complete language, and as such can express everything that ca
 - [ ] Adding more facts to the knowledge base in Datalog can give fewer results, because Datalog supports negations
 - [ ] Non-monotonic logic has no practical importance, as it gives multiple minimal models as solutions
 - [x] Answer set programming is more expressive than Datalog 
+
 **Explanation**
 Datalog supports monotonic logic, which means that extending the knowledge base always returns at least as many results as before.
 Non-monotonic logic may result in multiple minimal models, each being a correct solution, but we can define an appropriate semantics that accepts such solutions.
@@ -1400,6 +1408,7 @@ Answer set programming, unlike Datalog, supports negation, and is able to expres
 - [x] it requires reasoning about all possible attack scenarios
 - [x] one insecure component makes the entire system insecure
 - [ ] attackers often choose one component and attack it until they succeed 
+
 **Explanation**
 To be 100% sure a system is secure, one needs to analyze all possible attack scenarios. This task is hard (often infeasible) to complete. It is enough that just one attack scenario succeeds to compromise the entire system. Moreover, it takes just one faulty component for the attacker to get access to the whole system. Finally, attackers often look for different weak points that, attacked together, may lead to a security problem.
 
@@ -1424,6 +1433,7 @@ To be 100% sure a system is secure, one needs to analyze all possible attack sce
 - [x] deciding whether a particular user is allowed to perform the requested operation on the requested resource
 - [x] authentication
 - [ ] None of the above 
+
 **Explanation**
 The guard is responsible for authentication — i.e., identifying the user and verifying that the user is who they claim they are, and authorization, i.e., deciding whether a particular user is allowed to perform the requested operation on the requested resource.
 
@@ -1433,6 +1443,7 @@ The guard is responsible for authentication — i.e., identifying the user and v
 - [x] a minimal subset of components should be trusted to enforce the security policy
 - [ ] every component should be responsible for enforcing the security policy
 - [x] every piece of code on the server side should have the lowest privilege necessary to complete its function
+
 **Explanation**
 According to the principle of least privilege, the number of trusted components, the number of components responsible for the system security and the privileges any piece of code is granted should be minimal.
 
@@ -1442,6 +1453,7 @@ According to the principle of least privilege, the number of trusted components,
 - [x] reduce the number of security bugs
 - [ ] sacrifice modularity for security
 - [x] are easier to reason about 
+
 **Explanation**
 The principle of least privilege decentralizes the security-related functionality, implementing it within the corresponding components, thus improving modularity. This leads to less complexity and, as a result, to better system scalability and fewer bugs.
 
@@ -1454,6 +1466,7 @@ The principle of least privilege decentralizes the security-related functionalit
 - [x] legitimate users must always be given access, once they authenticated correctly
 - [ ] the adversary is not allowed to guess passwords
 - [x] password guessing must be expensive 
+
 **Explanation**
 Password guessing must be the only way an adversary can try to authenticate themselves. Regardless of the number of guesses required for a correct guess, password guessing must be expensive in terms of time, preventing the adversary to perform many repeated attempts within a short amount of time. 
 
@@ -1465,6 +1478,7 @@ Password guessing must be the only way an adversary can try to authenticate them
 - [ ] assumes that each password is hashed, and the hash is stored along with a random string referred to as “salt”
 - [x] improves the security of weak passwords in case of stolen databases of password hashes
 - [ ] improves the security of weak passwords unless the password database is stolen 
+
 **Explanation**
  In the salting approach, each password is hashed together with a random string, and then stored in the database along with that random string ("salt"). In case the encrypted password database is stolen, this approach makes the guessing process (e.g., using rainbow tables) harder; the use of the random string makes weak passwords in particular hard to guess. 
  
@@ -1474,6 +1488,7 @@ Password guessing must be the only way an adversary can try to authenticate them
 - [ ] cannot be used by an adversary if stolen
 - [ ] consist of the user ID, expiration time, and a user-known secret
 - [x] consist of the user ID, expiration time, and a server-known secret 
+
 **Explanation**
  Session keys consist of a combination of the user ID, expiration time, and a secret known only by the user. They are used to minimize the transmission of user credentials over the network. They can be used by an adversary if stolen, but only for a limited amount of time.
 
@@ -1484,6 +1499,7 @@ Password guessing must be the only way an adversary can try to authenticate them
 - [x] authenticate the server on the client side
 - [ ] prevent an adversary from tracking the communication between the server and the client
 - [ ] prevent a man-in-the-middle attack 
+
 **Explanation**
  In the challenge-response protocol, the password (or even a hash thereof) is never directly transmitted from the client to the server. Instead, the server sends a random string, to which the user replies with a hash of the concatenation of the password and the string. This prevents a man in the middle from obtaining the password, but it does not prevent him from taking actions on behalf of the user. It can be used by both the client and the server to authenticate each other. 
  
@@ -1494,14 +1510,16 @@ Password guessing must be the only way an adversary can try to authenticate them
 - [ ] is used to prevent the adversary from inverting the hashed password
 - [x] is used to prevent the adversary from reusing the learned (hashed) password
 - [x] requires the user to hash their password recursively, a different number of times for every authentication 
+
 **Explanation**
- The one-time password approach is used to prevent the adversary from reusing the learned password multiple times. It is implemented through recursive hashing, which means that the user always sends a password recursively hashed a number of times. The client and the server must be synchronized with respect to how many times the password is hashed. 
+The one-time password approach is used to prevent the adversary from reusing the learned password multiple times. It is implemented through recursive hashing, which means that the user always sends a password recursively hashed a number of times. The client and the server must be synchronized with respect to how many times the password is hashed. 
  
 ### When creating a threat model for networked systems it is usually assumed that an adversary can:
 - [x] observe any network packet
 - [x] modify any network packet
 - [x] read the payload of any network packet
 - [ ] make undetected modifications to any message 
+
 **Explanation**
 The main goal of security in networked systems is to ensure that an adversary cannot understand or silently modify messages exchanged by others even if an adversary can see and modify all packets.
 
@@ -1512,8 +1530,9 @@ The main goal of security in networked systems is to ensure that an adversary ca
 - [x] is mainly used to ensure that an adversary cannot learn the contents of a message
 - [ ] is mainly used to ensure that an adversary cannot intercept messages
 - [x] produces output that is typically at least as long as the message itself 
+
 **Explanation**
- Encryption is used to ensure that an adversary cannot make learn the content of a message. Adversaries can read the encrypted content or even modify it, but cannot restore the original content without the encryption key. The output of encryption is usually slighly longer than the original unencrypted content.
+Encryption is used to ensure that an adversary cannot make learn the content of a message. Adversaries can read the encrypted content or even modify it, but cannot restore the original content without the encryption key. The output of encryption is usually slighly longer than the original unencrypted content.
  
 ### Message authentication codes (MACs): 
 - [ ] are used to ensure secrecy
@@ -1522,6 +1541,7 @@ The main goal of security in networked systems is to ensure that an adversary ca
 - [ ] are used to ensure that an adversary cannot learn the content of a message
 - [ ] are used to ensure that an adversary cannot intercept messages
 - [ ] are typically at least as long as the message itself 
+
 **Explanation**
 Message authentication codes are used to ensure integrity — i.e., that an adversary cannot make undetected changes to a message. A MAC is a message supplement and as such it does not prevent adversaries from intercepting, learning and modifying the content of messages. However, any modification to the original message will be detected. A MAC is essentially a hash of a message, and is typically shorter than the message itself.
  
@@ -1538,6 +1558,7 @@ Message authentication codes are used to ensure integrity — i.e., that an adve
 - [ ] if an adversary can observe all messages
 - [ ] in case of a man-in-the-middle attack
 - [x] none of the above 
+
 **Explanation**
 The basic Diffie-Hellman protocol allows to exchange keys securely even if an adversary can intercept all messages. It fails if an adversary uses a man-in-the-middle attack, but as hinted at the end of this lecture, it can be improved.
 
@@ -1548,6 +1569,7 @@ The basic Diffie-Hellman protocol allows to exchange keys securely even if an ad
 - [x] can reorder messages
 - [ ] can modify the content of the message without detection
 - [ ] None of the above 
+
 **Explanation**
 Digital signatures guarantee authenticity. An adversary can observe messages, reorder them and forward to other parties, and even understand the content, unless encryption is used. The adversary however cannot secretly modify the message because the signature of each message depends on its content. Updating the signature upon content modification is practically infeasible without the private key of the sender. 
 
@@ -1564,6 +1586,7 @@ Digital signatures guarantee authenticity. An adversary can observe messages, re
 - [ ] the public key of the remote host is distributed by a central trusted authority
 - [x] the public key of the remote host is provided by the remote host itself
 - [x] the public key of the remote host is cached locally 
+
 **Explanation**
 In SSH, the public key of the remote host is provided by the remote host itself, which makes the protocol susceptible to man-in-the-middle attacks. Once obtained, the key can be cached locally.
 
@@ -1572,6 +1595,7 @@ In SSH, the public key of the remote host is provided by the remote host itself,
 - [ ] E’s private key signed by E
 - [x] E’s public key signed by a certificate authority
 - [ ] E’s private key signed by a certificate authority 
+
 **Explanation**
 Digital certificates for an entity contains its public key signed by a certificate authority.
 
@@ -1580,5 +1604,6 @@ Digital certificates for an entity contains its public key signed by a certifica
 - [x] to mitigate problems caused by certificate authority errors
 - [x] to announce invalid certificates
 - [ ] by certificate authorities to obtain public keys 
+
 **Explanation**
- Certificate revocation lists are maintained by certificate authorities and include known invalid certificates. Such lists can mitigate problems caused by certificate authority errors in issuing certificates.
+Certificate revocation lists are maintained by certificate authorities and include known invalid certificates. Such lists can mitigate problems caused by certificate authority errors in issuing certificates.

@@ -2,7 +2,7 @@
 
 ## Week 1: Modularity and Abstraction
  - Exokernel: An operating system architecture for application-level resource management (D.R. Engler et al., SOSP 1995)
- - The design philosophy of the DARPA Internet protocols** (D.D. Clark, SIGCOMM 1988)
+ - The design philosophy of the DARPA Internet protocols (D.D. Clark, SIGCOMM 1988)
  
 ## Week 2: Layering
  - Resilient overlay networks (D. Andersen et al., SOSP 2001)
